@@ -4,8 +4,10 @@
 #include <assert.h>
 #include <stdio.h>
 #include "../src/util.h"
+#include "unistd.h"
 
-
+NombreId liste={0};
+NombreId listeVoiture={0};
 
 void strmycpy(char S[], char T[]) {
   char *p, *q;
@@ -21,19 +23,78 @@ void strmycpy(char S[], char T[]) {
 
 CelluleClient * createCelluleClient(){
     Client client1;
+    liste.nombreId+=1;
     char nomClient[50], prenomClient[50];
     
     printf("Entrez le nom du client\n");
     scanf("%s", nomClient);
 
-    printf("Entrez l'id du client\n");
-    scanf("%d", &client1.id);
-
     printf("Entrez le prenom du client\n");
     scanf("%s", prenomClient);
 
-    printf("Entrez la date de naissance du client\n");
-    scanf("%d", &client1.dateNaissance);
+    client1.id = liste.nombreId;
+    printf("L'id du client est : %d \n", client1.id);
+    sleep(1);
+
+    printf("Entrez le jour la date de naissance du client\n");
+    scanf("%d", &client1.dateNaissance.jour);
+    
+    void verifJour(){
+        int correct = 0;
+        while(correct!=1){
+            if(client1.dateNaissance.jour>31 || client1.dateNaissance.jour<1){
+                printf("Le jour de naissance doit se situer entre le 1er et le 31, veuillez le corriger:\n");
+                printf("Entrez le jour la date de naissance du client\n");
+                scanf("%d", &client1.dateNaissance.jour);
+            }
+            else{
+                correct=1;
+            }
+        }
+    }
+
+    verifJour();
+
+
+    printf("Entrez le mois la date de naissance du client\n");
+    scanf("%d", &client1.dateNaissance.mois);
+
+    void verifMois(){
+        int correct = 0;
+        while(correct!=1){
+            if(client1.dateNaissance.mois>12 || client1.dateNaissance.mois<1){
+                printf("Le mois de naissance doit se situer entre 1 et le 12, veuillez le corriger:\n");
+                printf("Entrez le mois de naissance du client\n");
+                scanf("%d", &client1.dateNaissance.mois);
+            }
+            else{
+                correct=1;
+            }
+        }
+    }
+
+    verifMois();
+
+
+
+    printf("Entrez l'année la date de naissance du client\n");
+    scanf("%d", &client1.dateNaissance.année);
+
+    void verifAnnée(){
+        int correct = 0;
+        while(correct!=1){
+            if(client1.dateNaissance.année<0){
+                printf("L'année de naissance doit être supérieur à 0, veuillez la corriger:\n");
+                printf("Entrez l'année de naissance du client\n");
+                scanf("%d", &client1.dateNaissance.année);
+            }
+            else{
+                correct=1;
+            }
+        }
+    }
+
+    verifAnnée();
 
     strmycpy(client1.nom, nomClient);
     strmycpy(client1.prenom, prenomClient);
@@ -72,14 +133,14 @@ void addCelluleClient(CelluleClient *listeClient, CelluleClient*cell){
 
 CelluleVoiture * createCelluleVoiture(){
 
+    listeVoiture+=1;
     Voiture véhicule;
     Assurance assurance;
 
     char marque[80], numeroMatricule[80], couleur[80];
 
     printf("Entrez l'id de la voiture\n");
-    scanf("%d", &véhicule.id);
-
+    véhicule.id = listeVoiture.nombreId;
     printf("Entrez la date de fabrication de la voiture\n");
     scanf("%d", &véhicule.dateFabrication);
 

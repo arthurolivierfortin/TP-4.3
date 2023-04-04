@@ -20,9 +20,16 @@ struct assurance{
 
 typedef struct assurance Assurance;
 
+struct datenaissance{
+    int jour;
+    int mois;
+    int année;
+};
+
+typedef struct datenaissance DatedeNaissance;
 struct client{
     int id;
-    int dateNaissance;
+    DatedeNaissance dateNaissance;
     char nom[80];
     char prenom[80];
 };
@@ -56,6 +63,8 @@ struct nombreId{
 };
 
 typedef struct nombreId NombreId;
+
+
 
 int* createTable(int taille_T);
 int * concateOrder(int * T1, int taille_T1, int * T2, int taille_T2);
