@@ -7,7 +7,7 @@
 #include "unistd.h"
 
 NombreId liste={0};
-NombreId listeVoiture={0};
+NombreId listeVoitures={0};
 
 void strmycpy(char S[], char T[]) {
   char *p, *q;
@@ -133,16 +133,15 @@ void addCelluleClient(CelluleClient *listeClient, CelluleClient*cell){
 
 CelluleVoiture * createCelluleVoiture(){
 
-    listeVoiture+=1;
+    listeVoitures.nombreId+=1;
     Voiture véhicule;
     Assurance assurance;
 
     char marque[80], numeroMatricule[80], couleur[80];
 
-    printf("Entrez l'id de la voiture\n");
-    véhicule.id = listeVoiture.nombreId;
-    printf("Entrez la date de fabrication de la voiture\n");
-    scanf("%d", &véhicule.dateFabrication);
+    
+    printf("Entrez l'année de fabrication de la voiture\n");
+    scanf("%d", &véhicule.dateDeFabrication);
 
     printf("Entrez la marque de la voiture\n");
     scanf("%s", marque);
@@ -152,6 +151,12 @@ CelluleVoiture * createCelluleVoiture(){
 
     printf("Entrez la couleur de la voiture\n");
     scanf("%s", couleur);
+
+    véhicule.id = listeVoitures.nombreId;
+    printf("L'id de la voitue est: %d\n", véhicule.id);
+    
+    
+
 
     strmycpy(véhicule.Marque, marque);
 
@@ -165,52 +170,151 @@ CelluleVoiture * createCelluleVoiture(){
 
     int type[80];
 
-    printf("Entrez la date de début de votre assurance\n");
-    scanf("%d", &assurance.dateDebut);
+    printf("Entrez le jour de la date du début de l'assurance\n");
+    scanf("%d", &assurance.dateDebut.jour);
+    
+    void verifJour(int debutOUfin){
+        int correct = 0;
+        if(debutOUfin == 1){
+            while(correct!=1){
+                if(assurance.dateDebut.jour>31 || assurance.dateDebut.jour<1){
+                    printf("Le jour doit se situer entre le 1er et le 31, veuillez le corriger:\n");
+                    printf("Entrez le jour la date :\n");
+                    scanf("%d", &assurance.dateDebut.jour);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
 
-    printf("Entrez la date de fin de votre assurance\n");
-    scanf("%d", &assurance.dateFin);
+        if(debutOUfin == 0){
+            while(correct!=1){
+                if(assurance.dateFin.jour>31 || assurance.dateFin.jour<1){
+                    printf("Le jour doit se situer entre le 1er et le 31, veuillez le corriger:\n");
+                    printf("Entrez le jour la date :\n");
+                    scanf("%d", &assurance.dateFin.jour);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
+    }
 
-    printf("Entrez la date de début de votre assurance\n");
+    verifJour(1);
+
+
+    printf("Entrez le mois de la date du début de l'assurance\n");
+    scanf("%d", &assurance.dateDebut.mois);
+
+    void verifMois(int debutOUfin){
+        int correct = 0;
+        if(debutOUfin == 1){
+            while(correct!=1){
+                if(assurance.dateDebut.mois>12 || assurance.dateDebut.mois<1){
+                    printf("Le mois doit se situer entre 0 et 12, veuillez le corriger:\n");
+                    printf("Entrez le mois de la date: \n");
+                    scanf("%d", &assurance.dateDebut.mois);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
+
+        if(debutOUfin == 0){
+            while(correct!=1){
+                if(assurance.dateFin.mois>12 || assurance.dateFin.mois<1){
+                    printf("Le mois doit se situer entre 0 et 12, veuillez le corriger:\n");
+                    printf("Entrez le mois de la date: \n");
+                    scanf("%d", &assurance.dateFin.mois);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
+    }
+
+    verifMois(1);
+
+
+    printf("Entrez l'année de la date du début de l'assurance\n");
+    scanf("%d", &assurance.dateDebut.année);
+
+    void verifAnnée(int debutOUfin){
+        int correct = 0;
+        if(debutOUfin == 1){
+            while(correct!=1){
+                if(assurance.dateDebut.année<0){
+                    printf("L'année doit être spérieur à 0, veuillez le corriger:\n");
+                    printf("Entrez l'année de la date: \n");
+                    scanf("%d", &assurance.dateDebut.année);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
+
+        if(debutOUfin == 0){
+            while(correct!=1){
+                if(assurance.dateFin.année<0){
+                    printf("L'année doit être spérieur à 0, veuillez le corriger:\n");
+                    printf("Entrez l'année de la date: \n");
+                    scanf("%d", &assurance.dateFin.année);
+                }
+                else{
+                    correct=1;
+                }
+            }
+        }
+    }
+
+    verifAnnée(1);
+
+    printf("Entrez le jour de la date de fin de votre assurance: \n");
+    scanf("%d", &assurance.dateFin.jour);
+
+    verifJour(0);
+
+    printf("Entrez le mois de la date de fin de votre assurance: \n");
+    scanf("%d", &assurance.dateFin.mois);
+
+    verifMois(0);
+
+    printf("Entrez l'année de la date de fin de votre assurance: \n");
+    scanf("%d", &assurance.dateFin.année);
+
+    verifAnnée(0);
+
+    printf("Entrez le type d'assurance du véhicule: \n");
     scanf("%s", type);
 
     strmycpy(assurance.type, type);
 
     nouveauVéhicule->assurance = assurance;
 
-    nouveauVéhicule->propriétaire = createCelluleClient();
     nouveauVéhicule->suivante = NULL;
 
     return nouveauVéhicule;
 }
 
-void updateCelluleVoiture(Voiture vr, Assurance as, int client_id, CelluleVoiture* cell, CelluleClient *listeClient){
+void updateCelluleVoiture(Voiture *vr, Assurance *as, CelluleVoiture* cell){
 
-    int nbClient = 0, trouvé=0, i=0;
-    CelluleClient * p = listeClient;
-    while (p != NULL) {
-          nbClient++;
-          p = p->suivant;
-       }
-
-
-    for(i=0;i<nbClient;i++){
-        if((p[i].client.prenom)==cell->propriétaire){
-            trouvé=1;
-        }   
-    }
-    if(trouvé==0){
-        printf("Erreur : le client ||%s|| n'existe pas", cell->propriétaire);
-        return;
-    }
-
-    cell->voiture = vr;
-    cell->assurance = as;
-    int *propriétaire = cell->propriétaire;
-    Client *clientX = propriétaire;
-    clientX->id = client_id;
-
-
+    cell->assurance.dateDebut.jour=as->dateDebut.jour;
+    cell->assurance.dateDebut.mois=as->dateDebut.mois;
+    cell->assurance.dateDebut.année=as->dateDebut.année;
+    cell->assurance.dateFin.jour=as->dateFin.jour;
+    cell->assurance.dateFin.mois=as->dateFin.mois;
+    cell->assurance.dateFin.année=as->dateFin.année;
+    strmycpy(cell->voiture.Couleur,vr->Couleur);
+    strmycpy(cell->assurance.type,as->type);
+    cell->voiture.dateDeFabrication=vr->dateDeFabrication;
+    cell->voiture.id=vr->id;
+    strmycpy(cell->voiture.Marque,vr->Marque);
+    strmycpy(cell->voiture.numeroMatricule,vr->numeroMatricule);
 
 }
 

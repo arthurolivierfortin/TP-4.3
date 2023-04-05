@@ -4,32 +4,33 @@
 enum valide {VRAI, FAUX};
 typedef enum valide Valide;
 
+struct date{
+    int jour;
+    int mois;
+    int année;
+};
+
+typedef struct date Date;
 struct voiture{
     int id;
-    int dateFabrication;
+    int dateDeFabrication;
     char Marque[80], numeroMatricule[80], Couleur[80];
 
 };
 typedef struct voiture Voiture;
 
 struct assurance{
-    int dateDebut;
-    int dateFin;
+    Date dateDebut;
+    Date dateFin;
     char type[80];
 };
 
 typedef struct assurance Assurance;
 
-struct datenaissance{
-    int jour;
-    int mois;
-    int année;
-};
 
-typedef struct datenaissance DatedeNaissance;
 struct client{
     int id;
-    DatedeNaissance dateNaissance;
+    Date dateNaissance;
     char nom[80];
     char prenom[80];
 };
@@ -47,7 +48,7 @@ struct cellulevoiture{
     Voiture voiture;
     Assurance assurance;
     struct cellulevoiture *suivante;
-    struct CelluleClient *propriétaire;
+    CelluleClient *propriétaire;
 };
 
 typedef struct cellulevoiture CelluleVoiture;
@@ -73,5 +74,5 @@ CelluleClient * createCelluleClient();
 void updateCelluleClient(Client cl, CelluleClient* cell);
 void addCelluleClient(CelluleClient *listeClient, CelluleClient*cell);
 CelluleVoiture * createCelluleVoiture();
-void updateCelluleVoiture(Voiture vr, Assurance as, int client_id, CelluleVoiture* cell, CelluleClient *listeClient);
+void updateCelluleVoiture(Voiture *vr, Assurance *ar, CelluleVoiture* cell);
 void addCelluleVoiture(CelluleVoiture *listeVoiture, CelluleVoiture*cell);

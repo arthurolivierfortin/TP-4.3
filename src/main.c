@@ -93,28 +93,58 @@ void main() {
 
                 if (choix==3 && Voitures.debut==1) {
                         listeVoiture = createCelluleVoiture();
-                        Voitures.debut=0;
+                        listeVoiture->propriétaire=createCelluleClient();
                 }
 
                 if (choix==4) {
 
-                        int compte=0, choix = 0, i=0;
+                        int compte=1, choice = 0, i=0;
                         CelluleVoiture *J =listeVoiture;
+                        printf("%d - Propriétaire : %s %s\n", compte, J->propriétaire->client.nom, J->propriétaire->client.prenom);
+                        printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
                         while(J->suivante!=NULL){
                                 J = J->suivante;
                                 compte+=1;
+                                printf("%d - Propriétaire : %s %s\n",J->propriétaire->client.nom, J->propriétaire->client.prenom);
+                                printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
+                                
                         }
 
-                        printf("Il y a %d voiture dans le dossier, lequel voulez-vous modifier?\n", compte);
+                        printf("Lequel voulez-vous modifier?\n");
                         scanf("%d", &choix);
                         J =listeVoiture;
                         for(i=0;i<(choix-1);i++){
                                 J=J->suivante;
                         }
-                        Client clientH = {8000, 2003, "Fortin", "Arthur-Olivier"};
-                        Voiture vr = {4000, 2019, "Honda", "3AE3Q2", "rouge"};
-                        Assurance ar = {2000, 2015, "Tout"};
-                        updateCelluleVoiture(vr, ar, 80003, J, listeClient);
+                        printf("=======================\n");
+                        printf("Voici les anciennes informations du véhicule: \n");
+                        printf("%d - Propriétaire : %s %s\n", compte, J->propriétaire->client.nom, J->propriétaire->client.prenom);
+                        printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
+                        printf("Id : %d\n", J->voiture.id);
+                        printf("Numéro de matricule : %d\n", J->voiture.numeroMatricule);
+                        printf("Type de l'assurance : %s\n", J->assurance.type);
+                        printf("Date de début de l'asurance : %d/%d/%d\n", J->assurance.dateDebut.jour, J->assurance.dateDebut.mois, J->assurance.dateDebut.année);
+                        printf("Date de fin de l'asurance : %d/%d/%d\n", J->assurance.dateFin.jour, J->assurance.dateFin.mois, J->assurance.dateFin.année);
+                        printf("=======================\n");
+                        sleep(1);
+
+                        CelluleVoiture *NewCar = createCelluleVoiture();
+                        Voiture vr = NewCar->voiture;
+                        Assurance ar = NewCar->assurance;
+
+                        updateCelluleVoiture(&vr, &ar, J);
+
+                        printf("=======================\n");
+                        printf("Voici les nouvelles informations du véhicule: \n");
+                        printf("%d - Propriétaire : %s %s\n", compte, J->propriétaire->client.nom, J->propriétaire->client.prenom);
+                        printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
+                        printf("Id : %d\n", J->voiture.id);
+                        printf("Numéro de matricule : %d\n", J->voiture.numeroMatricule);
+                        printf("Type de l'assurance : %s\n", J->assurance.type);
+                        printf("Date de début de l'asurance : %d/%d/%d\n", J->assurance.dateDebut.jour, J->assurance.dateDebut.mois, J->assurance.dateDebut.année);
+                        printf("Date de fin de l'asurance : %d/%d/%d\n", J->assurance.dateFin.jour, J->assurance.dateFin.mois, J->assurance.dateFin.année);
+                        printf("=======================\n");
+                        sleep(1);
                         compte=0;
                         choix=0;
                 }
