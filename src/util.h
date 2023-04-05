@@ -12,7 +12,7 @@ struct date{
 
 typedef struct date Date;
 struct voiture{
-    int id;
+    unsigned long int id;
     int dateDeFabrication;
     char Marque[80], numeroMatricule[80], Couleur[80];
 
@@ -76,3 +76,5 @@ void addCelluleClient(CelluleClient *listeClient, CelluleClient*cell);
 CelluleVoiture * createCelluleVoiture();
 void updateCelluleVoiture(Voiture *vr, Assurance *ar, CelluleVoiture* cell);
 void addCelluleVoiture(CelluleVoiture *listeVoiture, CelluleVoiture*cell);
+void printVehicule(CelluleVoiture *J);
+void print(CelluleClient *p);

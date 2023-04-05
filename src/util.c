@@ -33,8 +33,6 @@ CelluleClient * createCelluleClient(){
     scanf("%s", prenomClient);
 
     client1.id = liste.nombreId;
-    printf("L'id du client est : %d \n", client1.id);
-    sleep(1);
 
     printf("Entrez le jour la date de naissance du client\n");
     scanf("%d", &client1.dateNaissance.jour);
@@ -111,7 +109,6 @@ void updateCelluleClient(Client cl, CelluleClient* cell){
 
     strmycpy(cell->client.nom,cl.nom);
     strmycpy(cell->client.prenom,cl.prenom);
-    cell->client.id = cl.id;
     cell->client.dateNaissance = cl.dateNaissance;
 }
 
@@ -153,7 +150,6 @@ CelluleVoiture * createCelluleVoiture(){
     scanf("%s", couleur);
 
     véhicule.id = listeVoitures.nombreId;
-    printf("L'id de la voitue est: %d\n", véhicule.id);
     
     
 
@@ -312,7 +308,6 @@ void updateCelluleVoiture(Voiture *vr, Assurance *as, CelluleVoiture* cell){
     strmycpy(cell->voiture.Couleur,vr->Couleur);
     strmycpy(cell->assurance.type,as->type);
     cell->voiture.dateDeFabrication=vr->dateDeFabrication;
-    cell->voiture.id=vr->id;
     strmycpy(cell->voiture.Marque,vr->Marque);
     strmycpy(cell->voiture.numeroMatricule,vr->numeroMatricule);
 
