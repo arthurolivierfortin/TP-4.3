@@ -35,6 +35,9 @@ void main() {
                         printf("7 - Afficher les véhicules d'un certain client\n");
                         printf("8 - Vérifier si l'assurance est expiré d'un client\n");
                         printf("9 - Afficher tous les véhicules dont l'assurance est expirée\n");
+                        printf("10 - Afficher le nombre de clients existants\n");
+                        printf("11 - Afficher le nombre de véhicules existants\n");
+                        printf("13 - Supprimer un véhicule\n");
                         scanf("%d", &choix);
 
                         return choix;
@@ -98,6 +101,13 @@ void main() {
 
                         CelluleClient *client2 = createCelluleClient();
                         addCelluleClient(listeClient, client2);
+                        printf("==============\n");
+                        printf("Voici les informations du nouveau client: \n");
+                        sleep(1);
+                        sleep(1);
+                        print(client2);
+                        printf("==============\n");
+                        
                 }
 
                 if (choix==3 && Voitures.debut==1) {
@@ -433,6 +443,95 @@ void main() {
 
                 if(choix==9 && Voitures.debut==0){
                         listAssuranceValide(listeVoiture);
+                }
+
+                if(choix==9 && Voitures.debut==1){
+                        printf("Il n'y a aucun véhicule d'enregistré\n");
+                        sleep(1);
+                }
+
+                if(choix==10){
+                        nbCelluleClient(listeClient);
+                        sleep(1);
+                }
+
+                if(choix==11){
+                        nbCelluleVoiture(listeVoiture);
+                        sleep(1);
+                }
+
+                if(choix==12 && Clients.debut==0){
+
+                        CelluleClient *A = listeClient;
+                        int choix=0, compte=1, i=0;
+                        
+                        printf("Quel client voulez-vous supprimer?\n");
+                        
+                        while(1){
+                                printf("=========\n");
+                                printf("%d - ", compte);
+                                print(A);
+                                printf("=========\n");
+                                sleep(1);
+                                if(A->suivant==NULL){
+                                        break;
+                                }
+                                compte+=1;
+                                A=A->suivant;
+                        }
+
+                        while(1){
+                                scanf("%d", &choix);
+                                if(choix<=compte && choix>0){
+                                        break;
+                                }
+                                printf("Le client numéro %d n'existe pas, veuillez corriger le numéro du client:\n", choix);
+                        }
+                        
+                        for(i=0;i<(choix-1);i++){
+                                A=A->suivant;
+                        }
+
+
+                        deleteClient(&listeClient, &listeVoiture, A->client.id);
+                        
+                }
+
+                if(choix==13 && Voitures.debut==0){
+
+                        CelluleVoiture *A = listeVoiture;
+                        int choix=0, compte=1, i=0;
+                        
+                        printf("Quel Véhicule voulez-vous supprimer?\n");
+                        
+                        while(1){
+                                printf("=========\n");
+                                printf("%d - ", compte);
+                                printVehicule(A);
+                                printf("=========\n");
+                                sleep(1);
+                                if(A->suivante==NULL){
+                                        break;
+                                }
+                                compte+=1;
+                                A=A->suivante;
+                        }
+
+                        while(1){
+                                scanf("%d", &choix);
+                                if(choix<=compte && choix>0){
+                                        break;
+                                }
+                                printf("Le véhicule numéro %d n'existe pas, veuillez corriger le numéro du client:\n", choix);
+                        }
+                        
+                        for(i=0;i<(choix-1);i++){
+                                A=A->suivante;
+                        }
+
+                
+                        deleteVoiture(listeVoiture, A->voiture.id);
+                        
                 }
                 Clients.debut=0;
                 Voitures.debut=0;

@@ -82,3 +82,7 @@ void afficherClient(CelluleClient *p);
 void listVoituresClient(CelluleClient *listeClient, CelluleVoiture *listeVoiture, int id_client );
 Valide assuranceValide(CelluleVoiture *cell, Date *date_actuelle); 
 void listAssuranceValide(CelluleVoiture*listeVoiture);
+int nbCelluleClient(CelluleClient *listeClient);
+int nbCelluleVoiture(CelluleVoiture *listeVoiture);
+void deleteVoiture(CelluleVoiture *addressListeVoiture, int voiture_id); 
+void deleteClient(CelluleClient ** addressListeClient, CelluleVoiture**addressListeVoiture, int client_id);

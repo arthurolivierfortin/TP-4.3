@@ -5,10 +5,13 @@
 #include <stdio.h>
 #include "../src/util.h"
 #include "unistd.h"
+#include <malloc.h>
 
 NombreId liste={0};
 NombreId listeVoitures={0};
 extern Valide;
+
+
 
 void verifJour(int debutOUfin, Assurance *assu){
     int correct = 0;
@@ -475,3 +478,97 @@ void listAssuranceValide(CelluleVoiture *listeVoiture){
         listeVoiture=listeVoiture->suivante;
     }
 }
+
+int nbCelluleClient(CelluleClient *listeClient){
+    CelluleClient *p = listeClient;
+    int compte=1;
+    while(1){
+            if(p->suivant==NULL){
+                    break;
+            }
+            p = p->suivant;
+            compte+=1;
+            
+    }
+
+    printf("Il y a %d clients dans la liste\n", compte);
+
+}
+
+int nbCelluleVoiture(CelluleVoiture *listeVoiture){
+    CelluleVoiture *p = listeVoiture;
+    int compte=1;
+    while(1){
+            if(p->suivante==NULL){
+                    break;
+            }
+            p = p->suivante;
+            compte+=1;
+            
+    }
+
+    printf("Il y a %d véhicule dans la liste\n", compte);
+}
+
+void deleteVoiture(CelluleVoiture *addressListeVoiture, int voiture_id){
+
+
+    while(1){
+        if(addressListeVoiture->voiture.id==voiture_id){
+            int*p =&addressListeVoiture->voiture;
+            free(p);
+            Voiture car = {NULL, NULL, NULL, NULL, NULL};
+            addressListeVoiture->voiture = car;
+            break;
+        }
+        addressListeVoiture=addressListeVoiture->suivante;
+    }
+
+
+}
+
+void deleteClient(CelluleClient ** addressListeClient, CelluleVoiture**addressListeVoiture, int client_id){
+    CelluleClient *addressListeCliente=*addressListeClient;
+    CelluleVoiture *addressListeVoituree = *addressListeVoiture;
+    Client cli = {NULL, NULL, NULL, NULL};
+    CelluleClient *cel;
+    cel->client = cli;
+    cel->suivant = NULL;
+    int i=0;
+    CelluleVoiture *L = *addressListeVoiture;
+    while(1){
+            
+            if(L->propriétaire->client.id==client_id){
+                int *p = &L->propriétaire->client;
+                free(p);
+                L->propriétaire->client=cli;
+            }
+            if(L->suivante==NULL){
+                break;
+            }
+            L = L->suivante;
+            
+    }
+    while(1){
+
+        
+
+    
+        if(addressListeCliente->client.id==client_id){
+            
+            int*p = &addressListeCliente->client;
+            free(p);
+            addressListeCliente->client = cli;
+            break;
+        }
+        if(addressListeCliente->suivant==NULL){
+            break;
+        }
+        addressListeCliente = addressListeCliente->suivant;
+        
+    }
+    
+}
+
+
+
