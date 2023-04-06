@@ -8,6 +8,7 @@
 
 NombreId liste={0};
 NombreId listeVoitures={0};
+extern Valide;
 
 void verifJour(int debutOUfin, Assurance *assu){
     int correct = 0;
@@ -414,4 +415,34 @@ void afficherClient(CelluleClient *p){
             
     }
     compte=1;
+}
+
+Valide assuranceValide(CelluleVoiture *cell, Date *date_actuelle){
+
+    int correct=0;
+    if(date_actuelle->année<=cell->assurance.dateFin.année){
+        if(date_actuelle->mois<=cell->assurance.dateFin.mois){
+            if(date_actuelle->jour<=cell->assurance.dateFin.année){
+                correct=1;
+            }
+            else{
+                correct=0;
+            }
+        }
+        else{
+            correct=0;
+        }
+    }
+    else{
+        correct=0;
+    }
+
+    if(correct==0){
+        return FAUX;
+    }
+    if(correct==1){
+        return VRAI;
+    }
+
+
 }

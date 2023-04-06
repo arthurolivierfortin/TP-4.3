@@ -33,6 +33,7 @@ void main() {
                         printf("5 - Afficher les informations des clients existants\n");
                         printf("6 - Afficher les informations des voitures existantes\n");
                         printf("7 - Afficher les véhicules d'un certain client\n");
+                        printf("8 - Vérifier si l'assurance est expiré d'un client\n");
                         scanf("%d", &choix);
 
                         return choix;
@@ -325,6 +326,103 @@ void main() {
                 if(choix==7 && Clients.debut==1){
                         printf("Il n'y a aucun client\n");
                         sleep(1);
+                }
+
+                if(choix==8 && Voitures.debut==0){
+                        Date date_actuel;
+                        CelluleClient *p = listeClient;
+                        CelluleVoiture *H = listeVoiture;
+                        int chois=0, i=0, compte=1, compte2=1, chois2=0;
+
+                        while(1){
+                                if(p->suivant==NULL){
+                                        break;
+                                }
+                                p = p->suivant;
+                                compte+=1;
+                                
+                        }
+
+
+                        
+
+                        printf("L'assurance de quel client voulez-vous vérifier?\n");
+                        afficherClient(listeClient);
+
+                        
+
+                        while(1){
+                                scanf("%d", &chois);
+                                if(chois<=compte && chois>0){
+                                        break;
+                                }
+                                printf("Le client numéro %d n'existe pas, veuillez corriger le numéro du client:\n", chois);
+                        }
+
+        
+                        CelluleClient *P = listeClient;
+
+                        for(i=0;i<(chois-1);i++){
+                                P=P->suivant;
+                        }
+
+
+                        printf("Lequel des véhicules du client?\n");
+                        sleep(1);
+                        while(1){
+                                if(H->propriétaire->client.id==P->client.id){
+                                        printf("========\n");
+                                        printf("%d - ", compte2);
+                                        printVehicule(H);
+                                        printf("========\n");
+                                        compte2+=1;
+                                        sleep(1);
+                                }
+                                if(H->suivante==NULL){
+                                        break;
+                                }
+                                H=H->suivante;
+                        }
+                        
+                        
+
+                        H = listeVoiture;
+
+                        
+
+                        while(1){
+                                scanf("%d", &chois2);
+                                if(chois<=compte2 && chois>0){
+                                        break;
+                                }
+                                printf("Le véhicule numéro %d n'existe pas, veuillez corriger le numéro du client:\n", chois2);
+                        }
+
+                        for(i=0;i<(chois2-1);i++){
+                                H=H->suivante;
+                        }
+
+                        printf("Entrez le jour de la date d'aujourd'hui:\n");
+                        scanf("%d", &date_actuel.jour);
+
+                        printf("Entrez le mois de la date d'aujourd'hui:\n");
+                        scanf("%d", &date_actuel.mois);
+
+                        printf("Entrez l'année de la date d'aujourd'hui:\n");
+                        scanf("%d", &date_actuel.année);
+
+                        int expirer = assuranceValide(H, &date_actuel);
+                        if(expirer == 1){
+                                printf("La date de l'assurance est expirée\n");
+                                printf("Elle expirait le %d/%d/%d\n", H->assurance.dateFin.jour, H->assurance.dateFin.mois,H->assurance.dateFin.année);
+                                sleep(1);
+                        }
+                        if(expirer == 0){
+                                printf("L'assurance est toujours active\n");
+                                printf("Elle expire le %d/%d/%d\n", H->assurance.dateFin.jour, H->assurance.dateFin.mois,H->assurance.dateFin.année);
+                                sleep(1);
+                        }
+
                 }
 
                 Clients.debut=0;
