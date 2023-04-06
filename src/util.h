@@ -78,3 +78,4 @@ void updateCelluleVoiture(Voiture *vr, Assurance *ar, CelluleVoiture* cell);
 void addCelluleVoiture(CelluleVoiture *listeVoiture, CelluleVoiture*cell);
 void printVehicule(CelluleVoiture *J);
 void print(CelluleClient *p);
+void afficherClient(CelluleClient *p);

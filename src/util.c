@@ -9,6 +9,27 @@
 NombreId liste={0};
 NombreId listeVoitures={0};
 
+
+void print(CelluleClient *p){
+
+                        printf("Nom : %s\n", p->client.nom);
+                        printf("Prenom : %s\n", p->client.prenom);
+                        printf("Id : %d\n", p->client.id);
+                        printf("Date Naissance : %d/%d/%d\n", p->client.dateNaissance.jour, p->client.dateNaissance.mois, p->client.dateNaissance.année);
+                }
+
+void printVehicule(CelluleVoiture *J){
+
+        printf("Propriétaire : %s %s\n",J->propriétaire->client.nom, J->propriétaire->client.prenom);
+        printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
+        printf("Id : %d\n", J->voiture.id);
+        printf("Numéro de matricule : %lx\n", J->voiture.numeroMatricule);
+        printf("Type de l'assurance : %s\n", J->assurance.type);
+        printf("Date de début de l'asurance : %d/%d/%d\n", J->assurance.dateDebut.jour, J->assurance.dateDebut.mois, J->assurance.dateDebut.année);
+        printf("Date de fin de l'asurance : %d/%d/%d\n", J->assurance.dateFin.jour, J->assurance.dateFin.mois, J->assurance.dateFin.année);
+
+}
+
 void strmycpy(char S[], char T[]) {
   char *p, *q;
   p = T; 
@@ -164,7 +185,7 @@ CelluleVoiture * createCelluleVoiture(){
 
     nouveauVéhicule->voiture = véhicule;
 
-    int type[80];
+    
 
     printf("Entrez le jour de la date du début de l'assurance\n");
     scanf("%d", &assurance.dateDebut.jour);
@@ -268,6 +289,8 @@ CelluleVoiture * createCelluleVoiture(){
         }
     }
 
+    int type[80];
+
     verifAnnée(1);
 
     printf("Entrez le jour de la date de fin de votre assurance: \n");
@@ -288,7 +311,9 @@ CelluleVoiture * createCelluleVoiture(){
     printf("Entrez le type d'assurance du véhicule: \n");
     scanf("%s", type);
 
+
     strmycpy(assurance.type, type);
+
 
     nouveauVéhicule->assurance = assurance;
 
@@ -326,4 +351,56 @@ void addCelluleVoiture(CelluleVoiture *listeVoiture, CelluleVoiture*cell){
     while (k->suivant != NULL)
         k = k->suivant;
     k->suivant = cell;
+}
+
+void listVoituresCleint(CelluleClient *listeClient, CelluleVoiture *listeVoiture, int id_client ){
+    
+    int choix=0, i=0;
+    
+    printf("Les véhicules de quel clients voulez-vous afficher?\n");
+    afficherClient(listeClient);
+    scanf("&d", &choix);
+
+    CelluleClient *p = listeClient;
+
+    for(i=0;i<(choice-1);i++){
+            p=p->suivant;
+    }
+
+    CelluleVoiture *L = listeVoiture;
+    while(L->suivant!=NULL){
+            L = L->suivant;
+            if(L->propriétaire->client.id==id_client){
+                printf("===========\n");
+                printVehicule(J);
+                printf("===========\n");
+            }
+            
+              
+    }
+
+
+}
+
+void afficherClient(CelluleClient *p){
+
+    int compte=1, choix = 0, i=0;
+
+    
+    while(1){
+            
+            printf("=============\n");
+            printf("%d- %s %s\n",compte,  p->client.nom, p->client.prenom);
+            print(p);
+            printf("=============\n");
+            if(p->suivant==NULL){
+                    sleep(1);
+                    break;
+            }
+            p = p->suivant;
+            compte+=1;
+            sleep(1);
+            
+    }
+    compte=1;
 }

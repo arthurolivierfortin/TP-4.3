@@ -21,25 +21,7 @@ void main() {
 
         while(1){
                 
-                void print(CelluleClient *p){
-
-                        printf("Nom : %s\n", p->client.nom);
-                        printf("Prenom : %s\n", p->client.prenom);
-                        printf("Id : %d\n", p->client.id);
-                        printf("Date Naissance : %d/%d/%d\n", p->client.dateNaissance.jour, p->client.dateNaissance.mois, p->client.dateNaissance.année);
-                }
-
-                void printVehicule(CelluleVoiture *J){
-
-                        printf("Propriétaire : %s %s\n",J->propriétaire->client.nom, J->propriétaire->client.prenom);
-                        printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
-                        printf("Id : %d\n", J->voiture.id);
-                        printf("Numéro de matricule : %lx\n", J->voiture.numeroMatricule);
-                        printf("Type de l'assurance : %s\n", J->assurance.type);
-                        printf("Date de début de l'asurance : %d/%d/%d\n", J->assurance.dateDebut.jour, J->assurance.dateDebut.mois, J->assurance.dateDebut.année);
-                        printf("Date de fin de l'asurance : %d/%d/%d\n", J->assurance.dateFin.jour, J->assurance.dateFin.mois, J->assurance.dateFin.année);
-
-                }
+        
 
                 int choisir(){
 
@@ -216,25 +198,7 @@ void main() {
                 }
 
                 if (choix==5 && Clients.debut==0){
-                        int compte=1, choix = 0, i=0;
-                        CelluleClient *p =listeClient;
-                        
-                        while(1){
-                                
-                                printf("=============\n");
-                                printf("%d- %s %s\n",compte,  p->client.nom, p->client.prenom);
-                                print(p);
-                                printf("=============\n");
-                                if(p->suivant==NULL){
-                                        sleep(1);
-                                        break;
-                                }
-                                p = p->suivant;
-                                compte+=1;
-                                sleep(1);
-                                
-                        }
-                        compte=1;
+                        afficherClient(listeClient);
                 }
 
                 if (choix==5 && Clients.debut==1){
