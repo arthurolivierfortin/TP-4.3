@@ -32,6 +32,7 @@ void main() {
                         printf("4 - Modifier les informations d'un véhicule\n");
                         printf("5 - Afficher les informations des clients existants\n");
                         printf("6 - Afficher les informations des voitures existantes\n");
+                        printf("7 - Afficher les véhicules d'un certain client\n");
                         scanf("%d", &choix);
 
                         return choix;
@@ -99,6 +100,7 @@ void main() {
 
                 if (choix==3 && Voitures.debut==1) {
                         listeVoiture = createCelluleVoiture();
+
                         printf("Voici les informations de votre véhicule: \n");
                         sleep(1);
                         printf("==========\n");
@@ -106,8 +108,8 @@ void main() {
                         printf("Id : %d\n", listeVoiture->voiture.id);
                         printf("Numéro de matricule : %lx\n", listeVoiture->voiture.numeroMatricule);
                         printf("Type de l'assurance : %s\n", listeVoiture->assurance.type);
-                        printf("Date de début de l'asurance : %d/%d/%d\n", listeVoiture->assurance.dateDebut.jour, listeVoiture->assurance.dateDebut.mois, listeVoiture->assurance.dateDebut.année);
-                        printf("Date de fin de l'asurance : %d/%d/%d\n", listeVoiture->assurance.dateFin.jour, listeVoiture->assurance.dateFin.mois, listeVoiture->assurance.dateFin.année);
+                        printf("Date de début de l'assurance : %d/%d/%d\n", listeVoiture->assurance.dateDebut.jour, listeVoiture->assurance.dateDebut.mois, listeVoiture->assurance.dateDebut.année);
+                        printf("Date de fin de l'assurance : %d/%d/%d\n", listeVoiture->assurance.dateFin.jour, listeVoiture->assurance.dateFin.mois, listeVoiture->assurance.dateFin.année);
                         printf("==========\n");
                         sleep(1);
                         
@@ -137,15 +139,26 @@ void main() {
                                         }
                                         printf("Voici les informations du client:\n");
                                         print(p);
+                                        sleep(1);
                                         listeVoiture->propriétaire=p;
                                         compte=1;
                                         choice=0;
+
+                                }
+
+                                else{
+                                        listeVoiture->propriétaire=createCelluleClient();
+                                        printf("Voici les informations de votre client:\n");
+                                        print(listeVoiture->propriétaire);
+                                        sleep(1);
+                                        listeClient=listeVoiture->propriétaire;   
                                 }
                         }
                         if(Clients.debut==1){
                                 listeVoiture->propriétaire=createCelluleClient();
                                 printf("Voici les informations de votre client:\n");
                                 print(listeVoiture->propriétaire);
+                                sleep(1);
                                 listeClient=listeVoiture->propriétaire;
                         }
                 }
@@ -159,7 +172,7 @@ void main() {
                         while(J->suivante!=NULL){
                                 J = J->suivante;
                                 compte+=1;
-                                printf("%d - Propriétaire : %s %s\n",J->propriétaire->client.nom, J->propriétaire->client.prenom);
+                                printf("Propriétaire : %s %s\n",J->propriétaire->client.nom, J->propriétaire->client.prenom);
                                 printf("%d %s %s\n", J->voiture.dateDeFabrication, J->voiture.Marque, J->voiture.Couleur);
                                 
                         }
@@ -193,8 +206,67 @@ void main() {
 
                 if (choix==3 && Voitures.debut==0){
 
-                        CelluleClient *client2 = createCelluleVoiture();
+                        CelluleVoiture *client2 = createCelluleVoiture();
                         addCelluleVoiture(listeVoiture, client2);
+                        printf("Voici les informations de votre véhicule: \n");
+                        sleep(1);
+                        printf("==========\n");
+                        printf("%d %s %s\n", client2->voiture.dateDeFabrication, client2->voiture.Marque, client2->voiture.Couleur);
+                        printf("Id : %d\n", client2->voiture.id);
+                        printf("Numéro de matricule : %lx\n", client2->voiture.numeroMatricule);
+                        printf("Type de l'assurance : %s\n", client2->assurance.type);
+                        printf("Date de début de l'assurance : %d/%d/%d\n", client2->assurance.dateDebut.jour, client2->assurance.dateDebut.mois, client2->assurance.dateDebut.année);
+                        printf("Date de fin de l'assurance : %d/%d/%d\n", client2->assurance.dateFin.jour, client2->assurance.dateFin.mois, client2->assurance.dateFin.année);
+                        printf("==========\n");
+                        sleep(1);
+
+                        if (Clients.debut==0){
+                                int x=0;
+                                printf("Voulez vous ajouter le véhicule à un client existant?\n");
+                                printf("1 - OUI\n");
+                                printf("2 - NON\n");
+                                scanf("%d", &x);
+                                if(x==1){
+                                        int compte=1, choice = 0, i=0;
+                                        CelluleClient *p =listeClient;
+                                        printf("%d- %s %s\n",compte,  p->client.nom, p->client.prenom);
+                                        while(p->suivant!=NULL){
+                                                p = p->suivant;
+                                                compte+=1;
+                                                printf("%d- %s %s\n",compte,  p->client.nom, p->client.prenom);
+                                                
+                                        }
+                                        
+
+                                        printf("Lequel client voulez-vous ajouter les informations?\n");
+                                        scanf("%d", &choice);
+                                        p =listeClient;
+                                        for(i=0;i<(choice-1);i++){
+                                                p=p->suivant;
+                                        }
+                                        printf("Voici les informations du client:\n");
+                                        print(p);
+                                        sleep(1);
+                                        client2->propriétaire=p;
+                                        compte=1;
+                                        choice=0;
+                                }
+                                else{
+                                     client2->propriétaire=createCelluleClient();
+                                        printf("Voici les informations de votre client:\n");
+                                        print(client2->propriétaire);
+                                        sleep(1);
+                                        addCelluleClient(listeClient ,client2->propriétaire);   
+                                }
+                        }
+                        
+                        if(Clients.debut==1){
+                                listeVoiture->propriétaire=createCelluleClient();
+                                printf("Voici les informations de votre client:\n");
+                                print(listeVoiture->propriétaire);
+                                sleep(1);
+                                listeClient=listeVoiture->propriétaire;
+                        }
                 }
 
                 if (choix==5 && Clients.debut==0){
@@ -229,6 +301,29 @@ void main() {
 
                 if (choix==6 && Voitures.debut==1){
                         printf("Il n'y a aucune voiture à afficher\n");
+                        sleep(1);
+                }
+
+                if(choix==7 && Clients.debut==0){
+
+                        int i=0;
+                        printf("Les véhicules de quel clients voulez-vous afficher?\n");
+                        afficherClient(listeClient);
+                        scanf("%d", &choix);
+
+                        CelluleClient *p = listeClient;
+
+                        for(i=0;i<(choix-1);i++){
+                                p=p->suivant;
+                        }
+
+                        int id_client = p->client.id;
+
+                        listVoituresClient(listeClient, listeVoiture, id_client);
+                }
+                
+                if(choix==7 && Clients.debut==1){
+                        printf("Il n'y a aucun client\n");
                         sleep(1);
                 }
 

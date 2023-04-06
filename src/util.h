@@ -79,3 +79,4 @@ void addCelluleVoiture(CelluleVoiture *listeVoiture, CelluleVoiture*cell);
 void printVehicule(CelluleVoiture *J);
 void print(CelluleClient *p);
 void afficherClient(CelluleClient *p);
+void listVoituresClient(CelluleClient *listeClient, CelluleVoiture *listeVoiture, int id_client );
