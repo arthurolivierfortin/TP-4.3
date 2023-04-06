@@ -34,6 +34,7 @@ void main() {
                         printf("6 - Afficher les informations des voitures existantes\n");
                         printf("7 - Afficher les véhicules d'un certain client\n");
                         printf("8 - Vérifier si l'assurance est expiré d'un client\n");
+                        printf("9 - Afficher tous les véhicules dont l'assurance est expirée\n");
                         scanf("%d", &choix);
 
                         return choix;
@@ -425,6 +426,14 @@ void main() {
 
                 }
 
+                if(choix==8 && Voitures.debut==1){
+                        printf("Il n'y a aucun véhicule d'enregistré\n");
+                        sleep(1);
+                }
+
+                if(choix==9 && Voitures.debut==0){
+                        listAssuranceValide(listeVoiture);
+                }
                 Clients.debut=0;
                 Voitures.debut=0;
         }

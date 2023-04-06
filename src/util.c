@@ -446,3 +446,32 @@ Valide assuranceValide(CelluleVoiture *cell, Date *date_actuelle){
 
 
 }
+
+void listAssuranceValide(CelluleVoiture *listeVoiture){
+    Date date_actuel;
+    CelluleVoiture *liste = listeVoiture;
+    int x=0;
+
+    printf("Entrez le jour de la date d'aujourd'hui:\n");
+    scanf("%d", &date_actuel.jour);
+
+    printf("Entrez le mois de la date d'aujourd'hui:\n");
+    scanf("%d", &date_actuel.mois);
+
+    printf("Entrez l'année de la date d'aujourd'hui:\n");
+    scanf("%d", &date_actuel.année);
+
+    printf("Voici les véhicules dont la date est expirée:\n");
+    while(1){
+        
+        x = assuranceValide(listeVoiture, &date_actuel);
+        if(x==1){
+            printVehicule(listeVoiture);
+            sleep(1);
+        }
+        if(listeVoiture->suivante==NULL){
+            break;
+        }
+        listeVoiture=listeVoiture->suivante;
+    }
+}
